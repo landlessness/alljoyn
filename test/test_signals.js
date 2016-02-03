@@ -80,10 +80,10 @@ describe('Signals on a Connected AllJoyn Session', function() {
         assert.equal(msg['0'],'Our lovely city.');
         assert.equal(typeof(sender.sender), 'string');
         assert.equal(sender.sender.length, 11);
-        assert.equal(typeof(sender.sessionId), 'number');
+        assert.equal(typeof(sender.session_id), 'number');
         assert.equal(typeof(sender.timestamp), 'number');
-        assert.equal(sender.memberName, 'Chat');
-        assert.equal(sender.objectPath, '/chatService');
+        assert.equal(sender.member_name, 'Chat');
+        assert.equal(sender.object_path, '/chatService');
         assert.equal(sender.signature, 's');
         
         chatSignalHandlerAlreadyCalled = true;
