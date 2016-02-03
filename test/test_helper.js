@@ -234,10 +234,10 @@ before(function(done){
         assert(/^bump$|^ba$/.test(msg['0']));
         assert.equal(typeof(sender.sender), 'string');
         assert.equal(sender.sender.length, 11);
-        assert.equal(typeof(sender.sessionId), 'number');
+        assert.equal(typeof(sender.session_id), 'number');
         assert.equal(typeof(sender.timestamp), 'number');
-        assert.equal(sender.memberName, heartbeatSignalName);
-        assert.equal(sender.objectPath, BUS_OBJECT_PATH);
+        assert.equal(sender.member_name, heartbeatSignalName);
+        assert.equal(sender.object_path, BUS_OBJECT_PATH);
         assert.equal(sender.signature, 's');
       
         heartbeatSignalHandlerAlreadyCalled = true;
