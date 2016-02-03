@@ -151,7 +151,7 @@ static uint32_t TranslateFlags(uint32_t flags)
         ourFlags |= IfConfigEntry::BROADCAST;
     }
     if (flags & IFF_DEBUG) {
-        // ourFlags |= IfConfigEntry::DEBUG;
+        ourFlags |= IfConfigEntry::DEBUG;
     }
     if (flags & IFF_LOOPBACK) {
         ourFlags |= IfConfigEntry::LOOPBACK;
