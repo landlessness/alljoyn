@@ -18,11 +18,9 @@ v8::Handle<v8::Value> BusListenerWrapper::NewInstance() {
 
 NAN_METHOD(BusListenerConstructor) {
   NanScope();
-
   if(args.Length() < 3){
     return NanThrowError("BusListener requires callbacks for FoundAdvertisedName, LostAdvertisedName, and NameOwnerChanged.");
   }
-
   v8::Local<v8::Object> obj;
   v8::Local<v8::FunctionTemplate> con = NanNew<v8::FunctionTemplate>(listener_constructor);
 

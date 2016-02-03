@@ -41,8 +41,8 @@ void msgArgToObject(const ajn::MsgArg* arg, size_t index, v8::Local<v8::Object> 
 		case ajn::ALLJOYN_UINT64:
 		  // Fallthrough to default because V8::Integer cannot be initialized from 64-bit integer
 		default:
-      // TODO: handle unhandled case
-		  break;
+      printf("Unhandled type: %i - arg#%lu", arg->typeId, index);
+      break;
 	}
 }
 

@@ -29,10 +29,10 @@ void SignalHandlerImpl::signal_callback(uv_async_t *handle, int status) {
 
     v8::Local<v8::Object> sender = v8::Object::New();
     sender->Set(NanNew<v8::String>("sender"), NanNew<v8::String>((*holder->message)->GetSender()));
-    sender->Set(NanNew<v8::String>("sessionId"), NanNew<v8::Integer>((*holder->message)->GetSessionId()));
+    sender->Set(NanNew<v8::String>("session_id"), NanNew<v8::Integer>((*holder->message)->GetSessionId()));
     sender->Set(NanNew<v8::String>("timestamp"), NanNew<v8::Integer>((*holder->message)->GetTimeStamp()));
-    sender->Set(NanNew<v8::String>("memberName"), NanNew<v8::String>((*holder->message)->GetMemberName()));
-    sender->Set(NanNew<v8::String>("objectPath"), NanNew<v8::String>((*holder->message)->GetObjectPath()));
+    sender->Set(NanNew<v8::String>("member_name"), NanNew<v8::String>((*holder->message)->GetMemberName()));
+    sender->Set(NanNew<v8::String>("object_path"), NanNew<v8::String>((*holder->message)->GetObjectPath()));
     sender->Set(NanNew<v8::String>("signature"), NanNew<v8::String>((*holder->message)->GetSignature()));
 
     v8::Handle<v8::Value> argv[] = {
