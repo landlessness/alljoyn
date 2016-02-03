@@ -27,6 +27,3 @@ node_modules
 
 # Other
 .DS_Store
-
-# place to stash goodies just as local files
-.goodies/
