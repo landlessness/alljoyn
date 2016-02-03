@@ -17,6 +17,10 @@ SignalHandlerImpl::~SignalHandlerImpl(){
 
 void SignalHandlerImpl::signal_callback(uv_async_t *handle, int status) {
     CallbackHolder* holder = (CallbackHolder*) handle->data;
+    /* Workaround intermittent null in holder->message */
+    if (holder->message == NULL) {
+      return;
+    }
 
     v8::Local<v8::Object> msg = v8::Object::New();
     size_t msgIndex = 0;
