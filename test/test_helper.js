@@ -26,7 +26,7 @@ var MESSAGE_SIGNAL      = 4; ///< a signal message type
 
 
 var heartbeatSignalHandler = null;
-var heartbeatSignalHandlerAlreadyCalled = false;
+var heartbeatSignalHandlerCallCount = 0;
 var heartbeatSignalName = 'Heartbeat';
 
 var clientApplicationName = 'AboutPlusServiceTest';
@@ -229,7 +229,7 @@ before(function(done){
     }
 
     heartbeatSignalHandler = function(msg, sender){
-      if (heartbeatSignalHandlerAlreadyCalled) {
+      if (heartbeatSignalHandlerCallCount > 100) {
       } else {
         assert(/^bump$|^ba$/.test(msg['0']));
         assert.equal(typeof(sender.sender), 'string');
@@ -240,7 +240,7 @@ before(function(done){
         assert.equal(sender.object_path, BUS_OBJECT_PATH);
         assert.equal(sender.signature, 's');
       
-        heartbeatSignalHandlerAlreadyCalled = true;
+        heartbeatSignalHandlerCallCount++;
         done();
       }
     };

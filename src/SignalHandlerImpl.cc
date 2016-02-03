@@ -6,6 +6,8 @@
 #include <alljoyn/InterfaceDescription.h>
 #include <alljoyn/AllJoynStd.h>
 
+#include <algorithm>
+
 SignalHandlerImpl::SignalHandlerImpl(NanCallback* sig){
   loop = uv_default_loop();
   signalCallback.callback = sig;
@@ -16,8 +18,17 @@ SignalHandlerImpl::~SignalHandlerImpl(){
 }
 
 void SignalHandlerImpl::signal_callback(uv_async_t *handle, int status) {
-    CallbackHolder* holder = (CallbackHolder*) handle->data;
+  CallbackHolder* holder = (CallbackHolder*) handle->data;
 
+  Nan::HandleScope scope;
+  
+  std::queue<std::unique_ptr<ajn::Message>> messages;
+  uv_mutex_lock(&holder->lock);
+  messages = std::move(holder->messages);
+  uv_mutex_unlock(&holder->lock);
+
+  while(!messages.empty()) {
+    std::unique_ptr<ajn::Message> message = std::move(messages.front());
     v8::Local<v8::Object> msg = v8::Object::New();
     size_t msgIndex = 0;
     const ajn::MsgArg* arg = (*holder->message)->GetArg(msgIndex);
@@ -40,11 +51,8 @@ void SignalHandlerImpl::signal_callback(uv_async_t *handle, int status) {
       sender
     };
     holder->callback->Call(2, argv);
-
-    if(holder->message){
-      delete holder->message;
-      holder->message = NULL;
-    }
+    messages.pop();
+  }
 }
 
 void SignalHandlerImpl::Signal(const ajn::InterfaceDescription::Member *member, const char *srcPath, ajn::Message &message){

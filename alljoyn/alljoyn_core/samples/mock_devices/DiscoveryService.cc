@@ -630,15 +630,15 @@ int CDECL_CALL main(int argc, char** argv)
       while (s_interrupt == false) {
         busObject->SendHeartbeatSignal("ba");
         #ifdef _WIN32
-        Sleep(500);
+        Sleep(10);
         #else
-        usleep(500 * 1000);
+        usleep(1 * 1000);
         #endif
         busObject->SendHeartbeatSignal("bump");
         #ifdef _WIN32
-        Sleep(500);
+        Sleep(10);
         #else
-        usleep(500 * 1000);
+        usleep(1 * 1000);
         #endif
       }
     }
